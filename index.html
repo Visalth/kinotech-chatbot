@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/jpeg" href="img/kinotech_newcover.jpeg" />
+
+  <!-- Markdown + syntax highlighting (CDN) -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js" defer></script>
+
+  <title>Kinotech — Chat</title>
+</head>
+
+<body>
+  <div class="app">
+    <!-- Sidebar toggle (CSS-only off-canvas on mobile) -->
+    <input type="checkbox" class="sidebar-toggle" id="sidebar-toggle" />
+    <label for="sidebar-toggle" class="sidebar-backdrop" aria-hidden="true"></label>
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside class="sidebar">
+      <div class="sidebar__header">
+        <a href="https://kinotechy.com/en" class="sidebar__brand">
+          <img src="img/kinotech_logo.jpeg" alt="Kinotech logo" class="sidebar__brand-logo" />
+          <span class="sidebar__brand-name">KINOTECH</span>
+        </a>
+        <label for="sidebar-toggle" class="sidebar__close" aria-label="Close sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </label>
+      </div>
+
+      <button class="sidebar__new-chat" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+        <span>New chat</span>
+      </button>
+
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Recent</h3>
+        <ul class="sidebar__list" aria-label="Chat history"></ul>
+      </div>
+
+      <div class="sidebar__footer">
+        <div class="sidebar__user">
+          <div class="sidebar__user-avatar"></div>
+          <div class="sidebar__user-meta">
+            <span class="sidebar__user-name">User</span>
+            <span class="sidebar__user-plan">Free plan</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==================== CHAT ==================== -->
+    <main class="chat">
+      <!-- Top bar -->
+      <header class="chat__topbar">
+        <button class="chat__sidebar-toggle" id="sidebar-expand-btn" type="button" aria-label="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M9 3v18" />
+          </svg>
+        </button>
+        <label for="sidebar-toggle" class="chat__menu" aria-label="Open sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M3 12h18M3 6h18M3 18h18" />
+          </svg>
+        </label>
+        <span class="chat__topbar-title">New chat</span>
+        <div class="chat__topbar-actions">
+          <div class="model-picker model-picker--topbar" data-picker>
+            <button class="model-picker__trigger" type="button" aria-haspopup="menu" aria-expanded="false"
+              aria-label="Select model">
+              <span class="model-picker__name" data-picker-name>Kinotech Pro</span>
+              <svg class="model-picker__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="model-picker__menu" role="menu" data-picker-menu hidden></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <section class="chat__main">
+        <!-- Welcome / empty state -->
+        <div class="chat__welcome">
+          <div class="model-picker model-picker--welcome" data-picker>
+            <button class="model-picker__trigger" type="button" aria-haspopup="menu" aria-expanded="false"
+              aria-label="Select model">
+              <span class="model-picker__name" data-picker-name>Kinotech Pro</span>
+              <svg class="model-picker__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="model-picker__menu" role="menu" data-picker-menu hidden></div>
+          </div>
+          <h1 class="welcome__tagline">What can I build for you?</h1>
+          <div class="welcome__pills">
+            <button class="pill-btn" type="button"
+              data-prompt="Help me debug some code. I'll paste the error in a moment.">
+              <span class="pill-btn__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
+                </svg>
+              </span>
+              Debug code
+            </button>
+            <button class="pill-btn" type="button"
+              data-prompt="Explain an algorithm to me with code examples in Python or JavaScript.">
+              <span class="pill-btn__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg>
+              </span>
+              Explain algorithm
+            </button>
+            <button class="pill-btn" type="button"
+              data-prompt="Help me plan out a new feature, from idea to architecture.">
+              <span class="pill-btn__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
+              </span>
+              Plan feature
+            </button>
+            <button class="pill-btn" type="button"
+              data-prompt="Can you review a function I wrote and spot bugs or improvements?">
+              <span class="pill-btn__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z" />
+                </svg>
+              </span>
+              Review code
+            </button>
+            <button class="pill-btn" type="button"
+              data-prompt="Suggest a fun programming project I could build this weekend.">
+              <span class="pill-btn__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              </span>
+              Surprise me
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages list (filled in by js/script.js) -->
+        <ul class="chat__messages u-hidden" aria-live="polite" aria-label="Conversation"></ul>
+      </section>
+
+      <!-- Composer -->
+      <div class="composer">
+        <form class="composer__form" autocomplete="off">
+          <textarea class="composer__input" placeholder="Message Kinotech…" rows="1" aria-label="Message"></textarea>
+          <button type="submit" class="composer__btn" aria-label="Send message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 19V5M5 12l7-7 7 7" />
+            </svg>
+          </button>
+        </form>
+        <p class="composer__hint">
+          Kinotech can make mistakes. Verify important info.
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/script.js" defer></script>
+</body>
+
+</html>
