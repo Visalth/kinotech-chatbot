@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const API_BASE = "http://localhost:8000";
+  const API_BASE = "https://kinotech-chatbot.onrender.com";
   const API_URL = `${API_BASE}/chat`;
   const MODELS_URL = `${API_BASE}/models`;
   const TITLE_URL = `${API_BASE}/title`;
@@ -228,7 +228,7 @@
       saveState();
       renderSidebar();
       if (getActiveChat()?.id === chat.id) topbarTitle.textContent = chat.title;
-    } catch {}
+    } catch { }
   }
 
   async function fetchModels() {
@@ -240,7 +240,7 @@
         availableModels = data.models;
         if (data.default) defaultModelId = data.default;
       }
-    } catch {}
+    } catch { }
   }
 
   function updatePickerLabels() {
@@ -435,7 +435,7 @@
 
     if (typeof window.hljs !== "undefined") {
       element.querySelectorAll("pre code").forEach((codeEl) => {
-        try { window.hljs.highlightElement(codeEl); } catch {}
+        try { window.hljs.highlightElement(codeEl); } catch { }
       });
     }
 
@@ -516,7 +516,7 @@
       try {
         const data = await response.json();
         if (data.detail) detail = data.detail;
-      } catch {}
+      } catch { }
       onError(detail);
       return;
     }
@@ -542,7 +542,7 @@
             try {
               const data = JSON.parse(parsed.data);
               if (typeof data.text === "string") onToken(data.text);
-            } catch {}
+            } catch { }
           } else if (parsed.event === "done") {
             onDone();
             return;
@@ -551,7 +551,7 @@
             try {
               const data = JSON.parse(parsed.data);
               msg = data.message || msg;
-            } catch {}
+            } catch { }
             onError(msg);
             return;
           }
