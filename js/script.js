@@ -732,6 +732,37 @@
     });
   });
 
+  ///     AUDIO 
+  const userAvatarLink = document.querySelector('.sidebar__user');
+  const meowAudio = new Audio('Kavkaz.mp3');
+  const catOverlay = document.getElementById('cat-overlay');
+  const catCloseBtn = document.getElementById('cat-close-btn');
+  const catBackdrop = document.getElementById('cat-backdrop');
+
+  function openCat() {
+    catOverlay.classList.remove('u-hidden');
+    meowAudio.currentTime = 0;
+    meowAudio.play();
+  }
+
+  function closeCat() {
+    catOverlay.classList.add('u-hidden');
+    meowAudio.pause();
+    meowAudio.currentTime = 0;
+  }
+
+  userAvatarLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    openCat();
+  });
+
+  catCloseBtn.addEventListener('click', closeCat);
+  catBackdrop.addEventListener('click', closeCat);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeCat();
+  });
+
   (async () => {
     await fetchModels();
     loadState();
