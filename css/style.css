@@ -1571,17 +1571,18 @@ svg {
 }
 
 .cat-overlay__img {
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: 8px;
+  width: 90vw;
+  height: 90vh;
+  object-fit: contain;
+  border-radius: 0;
 }
 
 .cat-overlay__close {
   position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 20px;
-  height: 20px;
+  top: -1.5rem;
+  right: -3rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   background: white;
   border: none;
